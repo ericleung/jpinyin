@@ -274,7 +274,15 @@ public final class PinyinHelper {
 	}
 
 	public static void addMutilPinyinDict(String path) throws FileNotFoundException {
-		MUTIL_PINYIN_TABLE.putAll(PinyinResource.getResource(PinyinResource.newFileReader(path)));
+		addMutilPinyinDict(PinyinResource.newFileReader(path)));
+	}
+	
+	public static void addMutilPinyinDictFromClasspath(String classpath) throws FileNotFoundException {
+		addMutilPinyinDict(PinyinResource.newClassPathReader(classpath)));
+	}
+	
+	public static void addMutilPinyinDict(Reader reader) throws FileNotFoundException {
+		MUTIL_PINYIN_TABLE.putAll(PinyinResource.getResource(reader));
 		dict.clear();
 		DOUBLE_ARRAY_TRIE.clear();
 		for (String word : MUTIL_PINYIN_TABLE.keySet()) {
